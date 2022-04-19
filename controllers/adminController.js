@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const adminModel = require("../models/adminModel");
+// const adminModel = require("../models/adminModel");
+import adminModel from "../models/adminModel.js";
 
 const postAdmin = async (req, res) => {
   try {
@@ -64,10 +66,12 @@ const updateAdmin = async (req, res) => {
   }
 };
 
-module.exports = {
-  postAdmin,
-  getAdmins,
-  getOneAdmin,
-  deleteAdmin,
-  updateAdmin,
-};
+// module.exports = {
+//   postAdmin,
+//   getAdmins,
+//   getOneAdmin,
+//   deleteAdmin,
+//   updateAdmin,
+// };
+
+export default { postAdmin, getAdmins, getOneAdmin, deleteAdmin, updateAdmin };
