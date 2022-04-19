@@ -21,7 +21,7 @@ const postAdmin = async (req, res) => {
     const newAdmin = newAdminData.save();
     res.status(200).json("New admin added");
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json({ error: err.message });
   }
 };
 
@@ -30,7 +30,7 @@ const getAdmins = async (req, res) => {
     const getAllAdmin = await adminModel.find();
     res.status(200).json({ getAllAdmin });
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json({ error: err.message });
   }
 };
 
