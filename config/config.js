@@ -1,4 +1,7 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
 const connectionString = process.env.connectionString;
 
@@ -10,4 +13,5 @@ const databaseConnection = () => {
   });
 };
 
-module.exports = databaseConnection;
+// module.exports = databaseConnection;
+export default databaseConnection;
