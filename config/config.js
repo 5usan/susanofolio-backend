@@ -1,4 +1,3 @@
-// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,5 +12,4 @@ const databaseConnection = () => {
   });
 };
 
-// module.exports = databaseConnection;
 export default databaseConnection;

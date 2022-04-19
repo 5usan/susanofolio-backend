@@ -1,7 +1,5 @@
-// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 
-// const adminModel = require("../models/adminModel");
 import adminModel from "../models/adminModel.js";
 
 const postAdmin = async (req, res) => {
@@ -65,13 +63,5 @@ const updateAdmin = async (req, res) => {
     res.status(400).json({ msg: "There was an error: " + err.message });
   }
 };
-
-// module.exports = {
-//   postAdmin,
-//   getAdmins,
-//   getOneAdmin,
-//   deleteAdmin,
-//   updateAdmin,
-// };
 
 export default { postAdmin, getAdmins, getOneAdmin, deleteAdmin, updateAdmin };

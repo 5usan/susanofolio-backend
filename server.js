@@ -1,13 +1,9 @@
-// require("dotenv/config");
 import dotenv from "dotenv";
 dotenv.config();
 
-// const express = require("express");
 import express from "express";
 
-// const databaseConnection = require("./config/config");
 import databaseConnection from "./config/config.js"
-// const adminRoutes = require("./routes/adminRoute");
 import adminRoutes from "./routes/adminRoute.js"
 
 const PORT = process.env.PORT || 5001;
