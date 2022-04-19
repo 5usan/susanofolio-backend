@@ -6,33 +6,35 @@ import adminModel from "../models/adminModel.js";
 
 const postAdmin = async (req, res) => {
   try {
-    const existingAdmin = await adminModel.findOne({ Email: req.body.Email });
+    const existingAdmin = await adminModel.findOne({ email: req.body.Email });
     if (existingAdmin) {
       throw new Error("Email Exists");
     }
     const newAdminData = new adminModel({
-      Name: req.body.Name,
-      Email: req.body.Email,
-      Linkedin: req.body.Linkedin,
-      Github: req.body.Github,
-      Instagram: req.body.Instagram,
-      Facebook: req.body.Facebook,
-      Description: req.body.Description,
+      name: req.body.name,
+      email: req.body.email,
+      linkedin: req.body.linkedin,
+      github: req.body.github,
+      instagram: req.body.instagram,
+      facebook: req.body.facebook,
+      description: req.body.description,
     });
 
-    const newAdmin = newAdminData.save();
-    res.status(200).json("New admin added");
+    await newAdminData.save();
+    res.status(200).json({ newAdmin: req.body, status: 200, success: true });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
 
 const getAdmins = async (req, res) => {
   try {
     const getAllAdmin = await adminModel.find();
-    res.status(200).json({ getAllAdmin });
+    res
+      .status(200)
+      .json({ allAdmins: getAllAdmin, status: 200, success: true });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
 
@@ -40,9 +42,11 @@ const getOneAdmin = async (req, res) => {
   const id = req.params.id;
   try {
     const getAdminById = await adminModel.findById(id);
-    res.status(200).json({ requestedAdmin: getAdminById });
+    res
+      .status(200)
+      .json({ requestedAdmin: getAdminById, status: 200, success: true });
   } catch (err) {
-    res.status(400).json({ msg: "There was an error: " + err.message });
+    res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
 
@@ -50,19 +54,24 @@ const deleteAdmin = async (req, res) => {
   const id = req.params.id;
   try {
     const getAdminById = await adminModel.findByIdAndDelete(id);
-    res.status(200).json({ deletedAdmin: getAdminById });
+    res
+      .status(200)
+      .json({ deletedAdmin: getAdminById, status: 200, success: true });
   } catch (err) {
-    res.status(400).json({ msg: "There was an error: " + err.message });
+    res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
+
 
 const updateAdmin = async (req, res) => {
   const id = req.params.id;
   try {
     const getAdminById = await adminModel.findByIdAndUpdate(id, req.body);
-    res.status(200).json({ updatedAdmin: getAdminById });
+    res
+      .status(200)
+      .json({ updatedAdmin: getAdminById, status: 200, success: true });
   } catch (err) {
-    res.status(400).json({ msg: "There was an error: " + err.message });
+    res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
 

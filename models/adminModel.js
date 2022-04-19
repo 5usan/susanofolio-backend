@@ -3,37 +3,42 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const adminSchema = new Schema({
-  Name: {
-    type: String,
-    required: true,
+const adminSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    linkedin: {
+      type: String,
+      required: true,
+    },
+    github: {
+      type: String,
+      required: true,
+    },
+    instagram: {
+      type: String,
+      required: true,
+    },
+    facebook: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: Array,
+      required: true,
+      default: [],
+    },
   },
-  Email: {
-    type: String,
-    required: true,
-  },
-  Linkedin: {
-    type: String,
-    required: true,
-  },
-  Github: {
-    type: String,
-    required: true,
-  },
-  Instagram: {
-    type: String,
-    required: true,
-  },
-  Facebook: {
-    type: String,
-    required: true,
-  },
-  Description: {
-    type: Array,
-    required: true,
-    default: [],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const adminModel = mongoose.model("adminSchema", adminSchema);
 
