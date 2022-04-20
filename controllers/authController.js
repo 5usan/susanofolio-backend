@@ -1,5 +1,8 @@
-import adminModel from "../models/adminModel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+import adminModel from "../models/adminModel.js";
 const saltRounds = 15;
 
 const signupController = {
@@ -78,15 +81,23 @@ const signupController = {
 const loginController = {
   postAdmin: async (req, res) => {
     const { email, password } = req.body;
+    let token;
+    const secretKey = process.env.jwtSecretKey;
+    const expireTime = process.env.jwtTokenExpireTime;
     try {
       if (!email || !password) {
         throw new Error("Field Empty");
       }
       const loginAdmin = await adminModel.findOne({ email });
       if (bcrypt.compare(password, loginAdmin.password)) {
+        token = jwt.sign(
+          { id: loginAdmin.id, email: loginAdmin.email },
+          secretKey,
+          { expiresIn: expireTime }
+        );
         res
           .status(200)
-          .json({ message: "Login Successful", status: 200, success: true });
+          .json({ message: "Login Successful", token: token, status: 200, success: true });
       } else {
         throw new Error("Password doesnot match");
       }
