@@ -3,6 +3,7 @@ import {
   signupController,
   loginController,
 } from "../controllers/authController.js";
+import jwtVerify from "../middlewares/jwtVerify.js";
 
 const authRoute = express.Router();
 
@@ -18,5 +19,4 @@ authRoute
   .patch(signupController.updateAdmin);
 
 authRoute.post("/login", loginController.postAdmin);
-
 export default authRoute;
