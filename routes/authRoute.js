@@ -1,17 +1,22 @@
 import express from "express";
-import signupController from "../controllers/authController.js";
+import {
+  signupController,
+  loginController,
+} from "../controllers/authController.js";
 
-const signupRoute = express.Router();
+const authRoute = express.Router();
 
-signupRoute.get("/", signupController.getAdmins);
-signupRoute.post("/", signupController.postAdmin);
-// signupRoute.get("/:id", authController.getOneAdmin);
-// signupRoute.delete("/:id", authController.deleteAdmin);
-// signupRoute.patch("/:id", authController.updateAdmin);
-signupRoute
-  .route("/:id")
+authRoute.get("/signup", signupController.getAdmins);
+authRoute.post("/signup", signupController.postAdmin);
+// authRoute.get("/:id", authController.getOneAdmin);
+// authRoute.delete("/:id", authController.deleteAdmin);
+// authRoute.patch("/:id", authController.updateAdmin);
+authRoute
+  .route("/signup/:id")
   .get(signupController.getOneAdmin)
   .delete(signupController.deleteAdmin)
   .patch(signupController.updateAdmin);
 
-export default signupRoute;
+authRoute.post("/login", loginController.postAdmin);
+
+export default authRoute;

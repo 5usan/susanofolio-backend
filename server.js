@@ -5,7 +5,7 @@ import express from "express";
 
 import databaseConnection from "./config/config.js";
 import adminDetailsRoute from "./routes/adminDetailsRoute.js";
-import signupRoute from "./routes/authRoute.js";
+import authRoute from "./routes/authRoute.js";
 
 const PORT = process.env.PORT || 5001;
 
@@ -16,7 +16,7 @@ server.use(express.json());
 databaseConnection();
 
 server.use("/api/adminDetails", adminDetailsRoute);
-server.use("/api/admin", signupRoute);
+server.use("/api/admin", authRoute);
 
 server.get("/", (req, res) => {
   console.log("Hello from the other side");

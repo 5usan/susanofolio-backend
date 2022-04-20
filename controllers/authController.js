@@ -69,4 +69,22 @@ const signupController = {
   },
 };
 
-export default signupController;
+const loginController = {
+  postAdmin: async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const loginAdmin = await signupModel.findOne({ email });
+      if (loginAdmin.password === password) {
+        res
+          .status(200)
+          .json({ message: "Login Successful", status: 200, success: true });
+      } else {
+        throw new Error("Password doesnot match");
+      }
+    } catch (err) {
+      res.status(400).json({ error: err.message, status: 400, success: false });
+    }
+  },
+};
+
+export { signupController, loginController };
