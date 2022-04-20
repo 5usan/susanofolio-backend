@@ -1,14 +1,17 @@
 import signupModel from "../models/signupModel.js";
+import bcrypt from "bcrypt";
+const saltRounds = 15;
+
 const signupController = {
   postAdmin: async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
-    console.log(req.body);
+    const encryptedPassword = await bcrypt.hash(password, saltRounds);
     try {
       const newAdmin = new signupModel({
         name,
         email,
         phoneNumber,
-        password,
+        password: encryptedPassword,
       });
 
       await newAdmin.save();
@@ -74,7 +77,7 @@ const loginController = {
     const { email, password } = req.body;
     try {
       const loginAdmin = await signupModel.findOne({ email });
-      if (loginAdmin.password === password) {
+      if (bcrypt.compare(password, loginAdmin.password)) {
         res
           .status(200)
           .json({ message: "Login Successful", status: 200, success: true });
