@@ -5,8 +5,11 @@ const saltRounds = 15;
 const signupController = {
   postAdmin: async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
-    const encryptedPassword = await bcrypt.hash(password, saltRounds);
     try {
+      if (!name || !email || !phoneNumber || !password) {
+        throw new Error("Field Empty");
+      }
+      const encryptedPassword = await bcrypt.hash(password, saltRounds);
       const newAdmin = new signupModel({
         name,
         email,
@@ -76,6 +79,9 @@ const loginController = {
   postAdmin: async (req, res) => {
     const { email, password } = req.body;
     try {
+      if (!email || !password) {
+        throw new Error("Field Empty");
+      }
       const loginAdmin = await signupModel.findOne({ email });
       if (bcrypt.compare(password, loginAdmin.password)) {
         res
