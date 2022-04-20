@@ -1,26 +1,17 @@
-// const mongoose = require("mongoose");
-import mongoose from "mongoose";
-
-// const adminModel = require("../models/adminModel");
-import adminModel from "../models/adminModel.js";
+import signupModel from "../models/signupModel.js";
 
 const postAdmin = async (req, res) => {
+  const { name, email, phoneNumber, password } = req.body;
+  console.log(req.body);
   try {
-    const existingAdmin = await adminModel.findOne({ email: req.body.Email });
-    if (existingAdmin) {
-      throw new Error("Email Exists");
-    }
-    const newAdminData = new adminModel({
-      name: req.body.name,
-      email: req.body.email,
-      linkedin: req.body.linkedin,
-      github: req.body.github,
-      instagram: req.body.instagram,
-      facebook: req.body.facebook,
-      description: req.body.description,
+    const newAdmin = new signupModel({
+      name,
+      email,
+      phoneNumber,
+      password,
     });
 
-    await newAdminData.save();
+    await newAdmin.save();
     res.status(200).json({ newAdmin: req.body, status: 200, success: true });
   } catch (err) {
     res.status(400).json({ error: err.message, status: 400, success: false });
@@ -29,7 +20,7 @@ const postAdmin = async (req, res) => {
 
 const getAdmins = async (req, res) => {
   try {
-    const getAllAdmin = await adminModel.find();
+    const getAllAdmin = await signupModel.find();
     res
       .status(200)
       .json({ allAdmins: getAllAdmin, status: 200, success: true });
@@ -41,7 +32,10 @@ const getAdmins = async (req, res) => {
 const getOneAdmin = async (req, res) => {
   const id = req.params.id;
   try {
-    const getAdminById = await adminModel.findById(id);
+    const getAdminById = await signupModel.findById(id);
+    if (!getAdminById) {
+      throw new Error("Not found");
+    }
     res
       .status(200)
       .json({ requestedAdmin: getAdminById, status: 200, success: true });
@@ -53,7 +47,7 @@ const getOneAdmin = async (req, res) => {
 const deleteAdmin = async (req, res) => {
   const id = req.params.id;
   try {
-    const getAdminById = await adminModel.findByIdAndDelete(id);
+    const getAdminById = await signupModel.findByIdAndDelete(id);
     res
       .status(200)
       .json({ deletedAdmin: getAdminById, status: 200, success: true });
@@ -62,11 +56,10 @@ const deleteAdmin = async (req, res) => {
   }
 };
 
-
 const updateAdmin = async (req, res) => {
   const id = req.params.id;
   try {
-    const getAdminById = await adminModel.findByIdAndUpdate(id, req.body);
+    const getAdminById = await signupModel.findByIdAndUpdate(id, req.body);
     res
       .status(200)
       .json({ updatedAdmin: getAdminById, status: 200, success: true });
@@ -74,13 +67,5 @@ const updateAdmin = async (req, res) => {
     res.status(400).json({ error: err.message, status: 400, success: false });
   }
 };
-
-// module.exports = {
-//   postAdmin,
-//   getAdmins,
-//   getOneAdmin,
-//   deleteAdmin,
-//   updateAdmin,
-// };
 
 export default { postAdmin, getAdmins, getOneAdmin, deleteAdmin, updateAdmin };

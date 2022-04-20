@@ -1,9 +1,8 @@
-// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const adminSchema = new Schema(
+const adminDetailsSchema = new Schema(
   {
     name: {
       type: String,
@@ -12,6 +11,7 @@ const adminSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     linkedin: {
       type: String,
@@ -40,7 +40,6 @@ const adminSchema = new Schema(
   }
 );
 
-const adminModel = mongoose.model("adminSchema", adminSchema);
+const adminDetailsModel = mongoose.model("adminDetailsSchema", adminDetailsSchema);
 
-// module.exports = adminModel;
-export default adminModel;
+export default adminDetailsModel;

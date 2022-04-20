@@ -1,14 +1,11 @@
-// require("dotenv/config");
 import dotenv from "dotenv";
 dotenv.config();
 
-// const express = require("express");
 import express from "express";
 
-// const databaseConnection = require("./config/config");
-import databaseConnection from "./config/config.js"
-// const adminRoutes = require("./routes/adminRoute");
-import adminRoutes from "./routes/adminRoute.js"
+import databaseConnection from "./config/config.js";
+import adminDetailsRoute from "./routes/adminDetailsRoute.js";
+import signupRoute from "./routes/authRoute.js";
 
 const PORT = process.env.PORT || 5001;
 
@@ -18,7 +15,8 @@ server.use(express.json());
 
 databaseConnection();
 
-server.use("/api/admin", adminRoutes);
+server.use("/api/adminDetails", adminDetailsRoute);
+server.use("/api/admin", signupRoute);
 
 server.get("/", (req, res) => {
   console.log("Hello from the other side");
