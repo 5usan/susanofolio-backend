@@ -1,4 +1,4 @@
-import signupModel from "../models/signupModel.js";
+import adminModel from "../models/adminModel.js";
 import bcrypt from "bcrypt";
 const saltRounds = 15;
 
@@ -10,7 +10,7 @@ const signupController = {
         throw new Error("Field Empty");
       }
       const encryptedPassword = await bcrypt.hash(password, saltRounds);
-      const newAdmin = new signupModel({
+      const newAdmin = new adminModel({
         name,
         email,
         phoneNumber,
@@ -26,7 +26,7 @@ const signupController = {
 
   getAdmins: async (req, res) => {
     try {
-      const getAllAdmin = await signupModel.find();
+      const getAllAdmin = await adminModel.find();
       res
         .status(200)
         .json({ allAdmins: getAllAdmin, status: 200, success: true });
@@ -38,7 +38,7 @@ const signupController = {
   getOneAdmin: async (req, res) => {
     const id = req.params.id;
     try {
-      const getAdminById = await signupModel.findById(id);
+      const getAdminById = await adminModel.findById(id);
       if (!getAdminById) {
         throw new Error("Not found");
       }
@@ -53,7 +53,7 @@ const signupController = {
   deleteAdmin: async (req, res) => {
     const id = req.params.id;
     try {
-      const getAdminById = await signupModel.findByIdAndDelete(id);
+      const getAdminById = await adminModel.findByIdAndDelete(id);
       res
         .status(200)
         .json({ deletedAdmin: getAdminById, status: 200, success: true });
@@ -65,7 +65,7 @@ const signupController = {
   updateAdmin: async (req, res) => {
     const id = req.params.id;
     try {
-      const getAdminById = await signupModel.findByIdAndUpdate(id, req.body);
+      const getAdminById = await adminModel.findByIdAndUpdate(id, req.body);
       res
         .status(200)
         .json({ updatedAdmin: getAdminById, status: 200, success: true });
@@ -82,7 +82,7 @@ const loginController = {
       if (!email || !password) {
         throw new Error("Field Empty");
       }
-      const loginAdmin = await signupModel.findOne({ email });
+      const loginAdmin = await adminModel.findOne({ email });
       if (bcrypt.compare(password, loginAdmin.password)) {
         res
           .status(200)

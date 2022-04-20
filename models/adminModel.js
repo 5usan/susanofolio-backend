@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const signupSchema = new Schema(
+const adminSchema = new Schema(
   {
     name: {
       type: String,
@@ -12,6 +12,10 @@ const signupSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      match: [
+        /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
+        "Email is invalid",
+      ],
     },
     phoneNumber: {
       type: Number,
@@ -26,6 +30,6 @@ const signupSchema = new Schema(
   { timestamps: true }
 );
 
-const signupModel = mongoose.model("signupSchema", signupSchema);
+const adminModel = mongoose.model("adminSchema", adminSchema);
 
-export default signupModel;
+export default adminModel;

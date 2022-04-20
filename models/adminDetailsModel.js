@@ -12,6 +12,10 @@ const adminDetailsSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      match: [
+        /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
+        "Email is invalid",
+      ],
     },
     linkedin: {
       type: String,
@@ -40,6 +44,9 @@ const adminDetailsSchema = new Schema(
   }
 );
 
-const adminDetailsModel = mongoose.model("adminDetailsSchema", adminDetailsSchema);
+const adminDetailsModel = mongoose.model(
+  "adminDetailsSchema",
+  adminDetailsSchema
+);
 
 export default adminDetailsModel;
