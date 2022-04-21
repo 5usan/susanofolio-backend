@@ -1,9 +1,8 @@
-import bcrypt from "bcrypt";
+import bcryptHandler from "../utils/bcrypt.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 import adminModel from "../models/adminModel.js";
-const saltRounds = 15;
 
 const signupController = {
   postAdmin: async (req, res) => {
@@ -12,7 +11,7 @@ const signupController = {
       if (!name || !email || !phoneNumber || !password) {
         throw new Error("Field Empty");
       }
-      const encryptedPassword = await bcrypt.hash(password, saltRounds);
+      const encryptedPassword = await bcryptHandler.encryptPassword(password);
       const newAdmin = new adminModel({
         name,
         email,
@@ -89,15 +88,18 @@ const loginController = {
         throw new Error("Field Empty");
       }
       const loginAdmin = await adminModel.findOne({ email });
-      if (bcrypt.compare(password, loginAdmin.password)) {
+      if (bcryptHandler.compairPassword(password, loginAdmin.password)) {
         token = jwt.sign(
           { id: loginAdmin.id, email: loginAdmin.email },
           secretKey,
           { expiresIn: expireTime }
         );
-        res
-          .status(200)
-          .json({ message: "Login Successful", token: token, status: 200, success: true });
+        res.status(200).json({
+          message: "Login Successful",
+          token: token,
+          status: 200,
+          success: true,
+        });
       } else {
         throw new Error("Password doesnot match");
       }
