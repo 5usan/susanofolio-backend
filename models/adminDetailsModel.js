@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { regex } from "../utils/regex.js";
 
 const Schema = mongoose.Schema;
 
@@ -12,10 +13,7 @@ const adminDetailsSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        "Email is invalid",
-      ],
+      match: regex.email,
     },
     linkedin: {
       type: String,
@@ -49,4 +47,4 @@ const adminDetailsModel = mongoose.model(
   adminDetailsSchema
 );
 
-export default adminDetailsModel;
+export default adminDetailsModel; 
