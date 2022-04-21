@@ -22,6 +22,10 @@ const contactMeSchema = new Schema(
       type: String,
       required: true,
     },
+    mailStatus: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
