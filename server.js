@@ -3,11 +3,11 @@ dotenv.config();
 
 import express from "express";
 
-import databaseConnection from "./config/config.js";
-import adminDetailsRoute from "./routes/adminDetailsRoute.js";
-import authRoute from "./routes/authRoute.js";
-import contactMeRoute from "./routes/contactMeRoute.js";
-import protectedRoute from "./routes/protectedRoute.js";
+import databaseConnection from "./src/config/config.js";
+import adminDetailsRoute from "./src/routes/adminDetailsRoute.js";
+import authRoute from "./src/routes/authRoute.js";
+import contactMeRoute from "./src/routes/contactMeRoute.js";
+import protectedRoute from "./src/routes/protectedRoute.js";
 
 const PORT = process.env.PORT || 5001;
 
