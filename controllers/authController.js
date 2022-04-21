@@ -22,7 +22,7 @@ const signupController = {
       await newAdmin.save();
       res.status(200).json({ newAdmin: req.body, status: 200, success: true });
     } catch (err) {
-      res.status(400).json({ error: err.message, status: 400, success: false });
+      res.status(500).json({ error: err.message, status: 500, success: false });
     }
   },
 

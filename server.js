@@ -6,6 +6,7 @@ import express from "express";
 import databaseConnection from "./config/config.js";
 import adminDetailsRoute from "./routes/adminDetailsRoute.js";
 import authRoute from "./routes/authRoute.js";
+import contactMeRoute from "./routes/contactMeRoute.js";
 import protectedRoute from "./routes/protectedRoute.js";
 
 const PORT = process.env.PORT || 5001;
@@ -18,6 +19,7 @@ databaseConnection();
 
 server.use("/api/adminDetails", adminDetailsRoute);
 server.use("/api/admin", authRoute);
+server.use("/api/contact", contactMeRoute);
 server.use("/api/protected", protectedRoute);
 
 server.get("/", (req, res) => {

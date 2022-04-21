@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { regex } from "../utils/regex";
+import { regex } from "../utils/regex.js";
 
 const Schema = mongoose.Schema;
 
