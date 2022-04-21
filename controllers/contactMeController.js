@@ -4,6 +4,7 @@ import mailHandler from "../utils/mailHandler.js";
 const contactMeController = {
   postContactMeDetails: async (req, res) => {
     const { firstName, lastName, email, description } = req.body;
+    console.log(req.body);
     try {
       if (!firstName || !lastName || !email || !description) {
         return res.status(400).json({ message: "Field Empty" });
@@ -16,14 +17,24 @@ const contactMeController = {
       });
 
       await newDetails.save();
-      mailHandler(email);
+      const mailSent = mailHandler(email);
+      console.log(mailSent, "mailSent");
+      if (mailSent) {
+        const statusChangedContact = await contactMeModel.findByIdAndUpdate(
+          newDetails._id,
+          { mailStatus: true }
+        );
+      }
+      return res.status(200).json({
+        message: "Contact is stored in database and mail sent.",
+        status: 200,
+        success: true,
+      });
+    } catch (err) {
       return res
-        .status(200)
-        .json({ newContactDetails: req.body, status: 200, success: true });
-    } catch (err) {}
-    return res
-      .status(500)
-      .json({ error: error.message, status: 500, success: false });
+        .status(500)
+        .json({ error: err.message, status: 500, success: false });
+    }
   },
 
   getAllContactMeDetails: async (req, res) => {
