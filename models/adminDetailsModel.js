@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const adminSchema = new Schema(
+const adminDetailsSchema = new Schema(
   {
     name: {
       type: String,
@@ -17,19 +17,36 @@ const adminSchema = new Schema(
         "Email is invalid",
       ],
     },
-    phoneNumber: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-    password: {
+    linkedin: {
       type: String,
       required: true,
     },
+    github: {
+      type: String,
+      required: true,
+    },
+    instagram: {
+      type: String,
+      required: true,
+    },
+    facebook: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: Array,
+      required: true,
+      default: [],
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const adminModel = mongoose.model("adminSchema", adminSchema);
+const adminDetailsModel = mongoose.model(
+  "adminDetailsSchema",
+  adminDetailsSchema
+);
 
-export default adminModel;
+export default adminDetailsModel;
