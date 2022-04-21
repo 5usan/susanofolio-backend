@@ -9,6 +9,7 @@ const jwtVerify = (req, res, next) => {
   try {
     if (!authorization) {
       res.status(401).json({ message: "You are not authorized" });
+      return;
     }
     const token = authorization.replace("Bearer ", "");
     jwt.verify(token, secretKey, (err, payload) => {
