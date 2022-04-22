@@ -7,12 +7,12 @@ const portfolioController = {
     try {
       const response = await axios.get(githubLink);
       const githubDatas = response.data;
-
+      
       const filteredDetails = githubDatas.map((project, index) => ({
         name: project.name,
         description: project.description,
         dateCreated: new Date(project.created_at).toDateString(),
-        link: projects.html_urls,
+        link: project.html_url,
       }));
 
       console.log(filteredDetails);

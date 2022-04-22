@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors";
 
 import express from "express";
 
@@ -17,6 +18,13 @@ const server = express();
 server.use(express.json());
 
 databaseConnection();
+
+const corsOptions = {
+  origin: "https://localhost:3000",
+  optionSuccessStatus: 200,
+};
+
+server.use(cors(corsOptions));
 
 server.use("/api/adminDetails", adminDetailsRoute);
 server.use("/api/admin", authRoute);
