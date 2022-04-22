@@ -10,6 +10,9 @@ const portfolioController = {
 
       const filteredDetails = githubDatas.map((project, index) => ({
         name: project.name,
+        description: project.description,
+        dateCreated: new Date(project.created_at).toDateString(),
+        link: projects.html_urls,
       }));
 
       console.log(filteredDetails);
