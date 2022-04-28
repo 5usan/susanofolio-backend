@@ -14,8 +14,6 @@ const portfolioController = {
         dateCreated: new Date(project.created_at).toDateString(),
         link: project.html_url,
       }));
-
-      console.log(filteredDetails);
       res
         .status(200)
         .json({ allRepos: filteredDetails, status: 200, success: true });
