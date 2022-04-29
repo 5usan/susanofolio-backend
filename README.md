@@ -2,18 +2,14 @@
 This is a server app project for susanofolio, created using nodejs,expressjs and mongoose.
 ## Packages Used
 ```
-"dependencies"
- "axios",
- "bcrypt"
- "cors"
- "express"
- "jsonwebtoken"
- "mongoose"
- "nodemailer"
+ * axios,
+ * bcrypt
+ * cors
+ * express
+ * jsonwebtoken
+ * mongoose
+ * nodemailer
  
- "devDependencies"
-    "dotenv"
-    "nodemon"
 ```
 ## Available Scripts
 In the project directory, you can run:
