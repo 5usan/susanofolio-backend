@@ -2,7 +2,7 @@
 This is a server app project for susanofolio, created using nodejs,expressjs and mongoose.
 ## Packages Used
 ```
- * axios,
+ * axios
  * bcrypt
  * cors
  * express
