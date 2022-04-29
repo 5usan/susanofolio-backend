@@ -13,3 +13,5 @@ const databaseConnection = () => {
 };
 
 export default databaseConnection;
+
+export const githubLink = "https://api.github.com/users/5usan/repos";

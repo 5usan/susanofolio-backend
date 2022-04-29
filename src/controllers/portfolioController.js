@@ -1,13 +1,11 @@
 import axios from "axios";
-
-const githubLink = "https://api.github.com/users/5usan/repos";
-
+import { githubLink } from "../config/config.js";
 const portfolioController = {
   getRepos: async (req, res) => {
     try {
       const response = await axios.get(githubLink);
       const githubDatas = response.data;
-      
+
       const filteredDetails = githubDatas.map((project, index) => ({
         name: project.name,
         description: project.description,

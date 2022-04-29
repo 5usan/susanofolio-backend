@@ -12,10 +12,10 @@ const mailHandler = (email) => {
     });
 
     const mailOptions = {
-      from: "susanshrestha2056@gmail.com",
+      from: "no-reply@gmail.com",
       to: email,
-      subject: "Email Test",
-      text: "This is an email test using Mailtrap.io",
+      subject: "Appreciation Mail",
+      text: "Thank you for reaching to me. I got your messgae and will reach you out soon.",
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
