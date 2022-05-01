@@ -17,7 +17,7 @@ const contactMeController = {
       });
 
       await newDetails.save();
-      const mailSent = mailHandler(email);
+      const mailSent = mailHandler(email, description);
       console.log(mailSent, "mailSent");
       if (mailSent) {
         const statusChangedContact = await contactMeModel.findByIdAndUpdate(
