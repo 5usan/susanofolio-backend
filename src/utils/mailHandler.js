@@ -1,29 +1,48 @@
+import dotenv from "dotenv";
+dotenv.config();
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 
-const CLIENT_ID = "636310470691-lrtfpj44sfhk9t19mq10rro2s02omicg.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
-const REDIRET_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN = "1//04wFzZo2cJkR_CgYIARAAGAQSNwF-L9Ir6XGZtyABe6cXFnXtFkNC18fHHrDlsw-p9wVopMYwc6R0oiWr_e-ziI2pwRVQ6Xvvhkc";
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRET_URI = process.env.REDIRET_URI;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 
-const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRET_URI);
-oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRET_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-const mailHandler =async (email, description) => {
+const mailHandler = async (firstName, email, description) => {
   const contactMailOptions = {
-    from: "Susan Shrestha <susanshrestha2056@gmail.com>",
+    from: `Susan Shrestha <${process.env.MAILER_EMAIL}>`,
     to: email,
-    subject: "Appreciation Mail",
-    text: "Thank you for reaching to me. I got your messgae and will reach you out soon.",
-    html: "<p>Thank you for reaching to me. I got your messgae and will reach you out soon.</p>",
+    subject: "Message Received ✔",
+    text: `Received your message at ${new Date().toDateString()}. 
+          Thank you ${firstName} for showing your interest on me. I will look through your message and contact you back as soon as possible.
+          sincerely,
+          Susan Shrestha`,
+    html: `Received your message at <b>${new Date().toDateString()}.</b><br/><br />
+  Thank you <b>${firstName}</b> for showing your interest on me. <br/><br/>I will look through your message and contact you back as soon as possible.<br/><br />
+  <i>Sincerely</i>,<br/>
+  <i>Susan Shrestha</i><br/>`,
   };
 
   const adminMailOptions = {
-    from: "Susan Shrestha <susanshrestha2056@gmail.com>",
-    to: "susanstha2056@gmail.com",
-    subject: "Message through contact",
-    text: description,
-    html: `<p>${description}</p>`,
+    from: `Susan Shrestha <${process.env.MAILER_EMAIL}>`,
+    to: process.env.ADMIN_EMAIL,
+    subject: "New Message Received ✔",
+    text: `Received message at ${new Date().toDateString()}.
+      Sender Name: ${firstName} , email Address: ${email},[ ${description} ]`,
+    html: `Received message at <b>${new Date().toDateString()}.</b><br/><br />
+    <b>Sender Name:</b> <i>${firstName},</i><br/><br/>
+    <b>Email ID:</b> <i>${email},</i> <br/><br/>
+     <b>Message:</b><br/>
+     <br/>
+      ${description}
+      <br/>`,
   };
 
   try {
@@ -36,7 +55,7 @@ const mailHandler =async (email, description) => {
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken
+        accessToken: accessToken,
       },
     });
 
