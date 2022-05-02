@@ -15,10 +15,10 @@ const server = express();
 
 server.use(express.json());
 
-databaseConnection();  
+databaseConnection();
 
 const corsOptions = {
-  origin: process.env.corsURL,
+  origin: "*",
   optionSuccessStatus: 200,
 };
 
