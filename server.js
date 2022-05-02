@@ -18,11 +18,11 @@ server.use(express.json());
 databaseConnection();  
 
 const corsOptions = {
-  origin: "https://localhost:3000",
+  origin: process.env.corsURL,
   optionSuccessStatus: 200,
 };
 
-server.use(cors());
+server.use(cors(corsOptions));
 
 server.use("/api/adminDetails", adminDetailsRoute);
 server.use("/api/admin", authRoute);
